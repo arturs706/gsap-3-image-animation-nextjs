@@ -2,15 +2,22 @@
 
 import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
+import Lenis from 'lenis'
 
 export default function Home() {
   const holdersRef = useRef<HTMLDivElement[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const lenis = new Lenis();
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf)
+    }
+    requestAnimationFrame(raf)
+
     const tl = gsap.timeline();
 
-    // Initial animations for all holders and images
     tl
       .fromTo(
         holdersRef.current,
